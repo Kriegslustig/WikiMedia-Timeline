@@ -7,7 +7,6 @@ module.exports = {
       wikiQueryer.queryImagesOnPage(currentYear, function (currentYearImages, currentYear) {
         returnArr.push({images: currentYearImages})
         if(currentYear + 1 == end) {
-          console.log(returnArr[0])
           callback(returnArr)
         }
       })

@@ -10,7 +10,6 @@ module.exports = {
       images.forEach(function (image, index) {
         self.queryImageData(image.title, function (imageDataResponse) {
           imageInfo = self._getResponseData(imageDataResponse).imageinfo[0]
-          console.log(imageInfo.parsedcomment)
           allImagesData.push({
             imageUrl: imageInfo.url
           , imageDescription: imageInfo.parsedcomment
@@ -30,7 +29,6 @@ module.exports = {
     var self = this
   , queryResponse = ''
     http.get(self.baseWikiApiURL + url, function (res) {
-      console.log('Requesting ' + self.baseWikiApiURL + url)
       res.on('data', function (data) {
         queryResponse += data
       })
