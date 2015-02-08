@@ -1,3 +1,10 @@
-<section class="timeline">
-
-</section>
+<main class="timeline">
+  {{#each years}}
+    {{#each images}}
+      <article class="image">
+        <h4 class="image__title">{{title}}</h4>
+        <img alt="{{imageDescription}}" src="{{imageUrl}}">
+      </article>
+    {{/each}}
+  {{/each}}
+</main>
