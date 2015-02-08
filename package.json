@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "express": "latest"
+    "express": "~4.11.2",
+    "handlebars": "~2.0.0"
   }
 }

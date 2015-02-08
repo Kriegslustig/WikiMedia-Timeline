@@ -1,8 +1,13 @@
 var express = require('express')
-, app = express();
+, app = express()
+, templateManager = require('./private/templateManager.js')
+
+app.set('view engin', 'handlebars')
 
 app.get('/', function (req, res) {
-  res.send('Hi!')
+  var timelime = templateManager.renderWithLayout('timeline', {}, '', function (renderedHTML) {
+    res.send(renderedHTML)
+  })
 })
 
 app.listen(3000)
