@@ -1,9 +1,11 @@
 var express = require('express')
-, app = express()
-, templateManager = require('./private/templateManager.js')
 , timelineGetter = require('./private/timelineGetter.js')
+, templateManager = require('./private/templateManager.js')
+, app = express()
 
 app.set('view engin', 'handlebars')
+
+app.use('/public', express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
   timelineGetter.getTimeline(1, 2, 5, function (timelineData) {
