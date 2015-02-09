@@ -8,7 +8,9 @@ app.set('view engin', 'handlebars')
 app.use('/public', express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
-  timelineGetter.getTimeline(1, 2, 5, function (timelineData) {
+  from = 1890 || req.query.from
+  to = 1891 || req.query.to
+  timelineGetter.getTimeline(from, to, 5, function (timelineData) {
     templateManager.renderWithLayout('timeline', {years: timelineData}, '', function (renderedHTML) {
       res.send(renderedHTML)
     })

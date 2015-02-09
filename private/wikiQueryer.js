@@ -1,6 +1,9 @@
 var http = require('http')
 module.exports = {
   baseWikiApiURL: 'http://en.wikipedia.org/w/api.php'
+, config: {
+    imageSize: 400
+  }
 , queryImagesOnPage: function (pageTitle, callback) {
     var self = this
     self.query('?format=json&action=query&prop=images&titles=' + pageTitle, function (response) {
@@ -8,10 +11,11 @@ module.exports = {
     , images = []
       images = self._getResponseData(response).images
       images.forEach(function (image, index) {
+        if(image.title === 'File:Commons-logo.svg') return true
         self.queryImageData(image.title, function (imageDataResponse) {
           imageInfo = self._getResponseData(imageDataResponse).imageinfo[0]
           allImagesData.push({
-            imageUrl: imageInfo.url
+            imageUrl: imageInfo.thumburl
           , imageDescription: imageInfo.parsedcomment
           })
           if(index == images.length - 1) {
@@ -23,7 +27,7 @@ module.exports = {
   }
 , queryImageData: function (imageTitle, callback) {
     var self = this
-    self.query('?format=json&action=query&titles=' + encodeURIComponent(imageTitle) + '&prop=imageinfo&iiprop=url|parsedcomment', callback)
+    self.query('?format=json&action=query&titles=' + encodeURIComponent(imageTitle) + '&prop=imageinfo&iiurlwidth=' + self.config.imageSize + '&iiprop=url|parsedcomment', callback)
   }
 , query: function (url, callback) {
     var self = this
